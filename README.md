@@ -30,5 +30,5 @@
 <br>
 
 <p align="center">
-  <img src="assets/KAYZEN.png" alt="kayzen" width="400"/>
+  <img src="assets/KAYZEN.png" width="400"/>
 </p>
