@@ -29,6 +29,6 @@
 
 <br>
 
-<p align="center">
-  <img src="assets/KAYZEN.png" width="400"/>
-</p>
+<div align="center">
+  <img src="assets/KAYZEN.png" alt="KAYZEN Pixel Art" width="400"/>
+</div>
