@@ -1,16 +1,5 @@
 <p align="center">
-  <span id="typing-text"></span>
-  <script>
-    const text = "hii im noctys welcome to my github";
-    const elem = document.getElementById("typing-text");
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < text.length) {
-        elem.textContent += text.charAt(i);
-        i++;
-      } else clearInterval(interval);
-    }, 100);
-  </script>
+  <img src="assets/typing.gif" alt="hii im noctys welcome to my github" />
 </p>
 
 <p align="center">
