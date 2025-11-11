@@ -34,5 +34,5 @@
 <br>
 
 <div align="center">
-  <img src="assets/KAYZEN.png" alt="KAYZEN Pixel Art" width="400"/>
+  <img src="assets/KAYZEN.png" alt="KAYZEN Pixel Art" width="400"/>Logo License</a> • All rights reserved
 </div>
