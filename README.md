@@ -1,4 +1,19 @@
 <p align="center">
+  <span id="typing-text"></span>
+  <script>
+    const text = "hii im noctys welcome to my github";
+    const elem = document.getElementById("typing-text");
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        elem.textContent += text.charAt(i);
+        i++;
+      } else clearInterval(interval);
+    }, 100);
+  </script>
+</p>
+
+<p align="center">
   <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXpycGxhbnRmcW0zaWowa3djZ3BvanFqaWQxdW01NHlpcnR6MzRxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Basrh159dGwKY/giphy.gif" alt="Super Mario Animated GIF" width="870"/>
 </p>
 
