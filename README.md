@@ -38,5 +38,5 @@
 </div>
 
 <p align="center">
-<text="Logo License</a> • All rights reserved"
+<text="Logo License • All rights reserved"
 </p>
