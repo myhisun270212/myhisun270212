@@ -1,0 +1,44 @@
+[
+  {
+    "name": "LeadUnity",
+    "repo": "https://github.com/myhisun270212/notpad-bersama.git",
+    "logo": "logo.png",
+    "description": "Leading University's defense setup",
+    "tags": []
+  },
+  {
+    "name": "OnePick",
+    "repo": "https://github.com/myhisun270212/nyun.git",
+    "logo": "op.png",
+    "description": "An One Piece trivia app to find your character",
+    "tags": []
+  },
+  {
+    "name": "Chessy",
+    "repo": "https://github.com/myhisun270212/nyun-crypto.git",
+    "logo": "chess.png",
+    "description": "Chess timer app for all types of variations",
+    "tags": []
+  },
+  {
+    "name": "Claster",
+    "repo": "https://github.com/myhisun270212/broker-kw-blum-kelar.git",
+    "logo": "claster.png",
+    "description": "A class scheduling app for teachers which is used to track routines",
+    "tags": []
+  },
+  {
+    "name": "OneTELE",
+    "repo": "https://github.com/myhisun270212/broker-kw-blum-kelar.git",
+    "logo": "onetele.png",
+    "description": "A custom teleprompter for liilab's recording studio",
+    "tags": []
+  },
+  {
+    "name": "Career Logic AI",
+    "repo": "https://github.com/myhisun270212/notpad-bersama.git",
+    "logo": "cl.png",
+    "description": "An AI Powered CV management and assesment system for aspiring career builders",
+    "tags": []
+  }
+]
