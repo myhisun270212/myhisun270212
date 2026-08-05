@@ -57,8 +57,7 @@ CARD_W   = 578
 CARD_H   = 168
 GAP      = 14
 MARGIN   = 5
-FONT     = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans','Helvetica Neue',sans-serif"
-FONT_MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace"
+FONT     = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace"
 
 def esc(s): return html.escape(str(s), quote=True)
 
@@ -149,7 +148,7 @@ def card(p, x, y, idx):
     a(f'<rect width="{CARD_W}" height="30" rx="12" fill="{PANEL_BAR}"/>')
     a(f'<rect y="18" width="{CARD_W}" height="12" fill="{PANEL_BAR}"/>')
     a(f'<line x1="0" y1="30" x2="{CARD_W}" y2="30" stroke="{BARLINE}"/>')
-    a(f'<text x="16" y="19" font-size="11" font-weight="600" letter-spacing="0.5" font-family="{FONT_MONO}" fill="{MUTED}"><tspan fill="{CYAN}">&#8226;</tspan> {esc(repo)}</text>')
+    a(f'<text x="16" y="19" font-size="11" font-weight="600" letter-spacing="0.5" fill="{MUTED}"><tspan fill="{CYAN}">&#8226;</tspan> {esc(repo)}</text>')
 
     # activity dot: emerald pulse if pushed within 14 days, dim otherwise
     days = 999
