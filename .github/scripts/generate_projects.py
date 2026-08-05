@@ -259,7 +259,15 @@ def main():
     h = MARGIN * 2 + rows * CARD_H + (rows - 1) * GAP
 
     svg = [f'<svg width="{W}" height="{h}" viewBox="0 0 {W} {h}" xmlns="http://www.w3.org/2000/svg" font-family="{FONT}">']
-    svg.append(f'<style>text{{font-family:{FONT};}}@media (prefers-color-scheme:dark){{.light{{display:none}}}}@media (prefers-color-scheme:light){{.dark{{display:none}}}}}</style>')
+    # Build CSS style separately to avoid f-string escaping issues
+    css_parts = [
+        '<style>',
+        f'text{{font-family:{FONT};}}',
+        '@media (prefers-color-scheme:dark){.light{display:none}}',
+        '@media (prefers-color-scheme:light){.dark{display:none}}',
+        '</style>'
+    ]
+    svg.append(''.join(css_parts))
 
     # dark version
     set_theme("dark")
