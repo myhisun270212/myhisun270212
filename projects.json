@@ -4,41 +4,41 @@
     "repo": "myhisun270212/notpad-bersama",
     "logo": "logo.png",
     "description": "Leading University's defense setup",
-    "tags": ["nextjs", "tailwind", "shadcn"]
+    "tags": []
   },
   {
     "name": "OnePick",
     "repo": "myhisun270212/nyun",
     "logo": "op.png",
     "description": "An One Piece trivia app to find your character",
-    "tags": ["nextjs", "tailwind", "shadcn"]
+    "tags": []
   },
   {
     "name": "Chessy",
     "repo": "",
     "logo": "chess.png",
     "description": "Chess timer app for all types of variations",
-    "tags": ["nextjs", "tailwind", "shadcn"]
+    "tags": []
   },
   {
     "name": "Claster",
     "repo": "",
     "logo": "claster.png",
     "description": "A class scheduling app for teachers which is used to track routines",
-    "tags": ["nextjs", "tailwind", "shadcn"]
+    "tags": []
   },
   {
     "name": "OneTELE",
     "repo": "",
     "logo": "onetele.png",
     "description": "A custom teleprompter for liilab's recording studio",
-    "tags": ["nextjs", "tailwind", "shadcn"]
+    "tags": []
   },
   {
     "name": "Career Logic AI",
     "repo": "",
     "logo": "cl.png",
     "description": "An AI Powered CV management and assesment system for aspiring career builders",
-    "tags": ["nextjs", "tailwind", "shadcn"]
+    "tags": []
   }
 ]

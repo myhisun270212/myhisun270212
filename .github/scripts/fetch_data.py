@@ -33,12 +33,21 @@ def main():
             p["pushed_at"] = info.get("pushed_at")
             if not p.get("description"):
                 p["description"] = info.get("description") or ""
+            
+            # Only override tags if not manually set in projects.json
+            if not p.get("tags") or len(p.get("tags", [])) == 0:
+                topics = info.get("topics", [])
+                p["tags"] = topics if topics else []
+            
             p["languages"] = gh(f"https://api.github.com/repos/{repo}/languages")
+            print(f"✓ {repo}: languages = {p['languages']}, topics = {p.get('tags', [])}", file=sys.stderr)
         except Exception as e:
             print(f"warn: could not fetch {repo}: {e}", file=sys.stderr)
             p.setdefault("stars", 0)
             p.setdefault("languages", {})
             p.setdefault("pushed_at", None)
+            if not p.get("tags"):
+                p["tags"] = []
     with open("merged.json", "w") as f:
         json.dump(projects, f)
     print(f"merged {len(projects)} projects")
