@@ -8,6 +8,7 @@ on:
       - "logos/**"
       - ".github/scripts/generate_projects.py"
       - ".github/scripts/fetch_data.py"
+      - "README.md"
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
