@@ -258,11 +258,8 @@ def main():
     rows = (len(projects) + 1) // 2
     h = MARGIN * 2 + rows * CARD_H + (rows - 1) * GAP
 
-    svg = [f'<svg width="{W}" height="{h}" viewBox="0 0 {W} {h}" xmlns="http://www.w3.org/2000/svg">']
-    svg.append(f'<style>')
-    svg.append(f'@media (prefers-color-scheme:dark){{.light{{display:none}}}}@media (prefers-color-scheme:light){{.dark{{display:none}}}}}')
-    svg.append(f'text, tspan {{font-family:"{FONT}" !important}}')
-    svg.append(f'</style>')
+    svg = [f'<svg width="{W}" height="{h}" viewBox="0 0 {W} {h}" xmlns="http://www.w3.org/2000/svg" font-family="{FONT}">']
+    svg.append(f'<style>@media (prefers-color-scheme:dark){{.light{{display:none}}}}@media (prefers-color-scheme:light){{.dark{{display:none}}}}}</style>')
 
     # dark version
     set_theme("dark")
