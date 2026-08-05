@@ -189,88 +189,74 @@ def card(p, x, y, idx):
     # tag pills
     tx = 68
     for tag in (p.get("tags") or [])[:3]:
-        tw = len(tag) * 7 + 12
-        a(f'<rect x="{tx}" y="105" width="{tw}" height="20" rx="10" fill="{PILL_BG}" stroke="{PILL_STROKE}" stroke-width="1"/>')
-        a(f'<text x="{tx+tw//2}" y="119" text-anchor="middle" font-size="10" font-weight="600" fill="{TEXT}">{esc(tag)}</text>')
-        tx += tw + 8
+        tw = len(tag) * 6.6 + 14
+        a(f'<rect x="{tx}" y="118" width="{tw:.0f}" height="17" rx="8.5" fill="{PILL_BG}" stroke="{PILL_STROKE}"/>')
+        a(f'<text x="{tx + tw/2:.0f}" y="130" text-anchor="middle" font-size="9.5" fill="{VIOLET}">{esc(tag)}</text>')
+        tx += tw + 7
 
-    # bottom row: stars + languages donut + relative time
+    # bottom row: stars + updated
     stars = p.get("stars", 0)
-    a(f'<text x="68" y="142" font-size="10" fill="{MUTED}">★ {stars} stars</text>')
+    a(f'<text x="68" y="155" font-size="11" fill="{MUTED}">'
+      f'<tspan fill="{CYAN}">&#9733;</tspan> {stars}'
+      f'<tspan fill="{DIM}" dx="14">updated {rel_time(p.get("pushed_at"))}</tspan></text>')
 
-    # language donut (small) + legend
-    donut_start = b + 0.6
-    lang_svg, legend = donut_segments(p.get("languages", {}), CARD_W - 120, 138, 7, donut_start)
-    a(lang_svg)
-    
-    # language legend - show top 2 languages with percentages
-    lang_x = CARD_W - 105
-    for i, (lang, frac, col) in enumerate(legend[:2]):
-        if frac > 0:
-            pct = f"{frac*100:.0f}%"
-            a(f'<text x="{lang_x}" y="{135 + i*12}" font-size="9" fill="{MUTED}">{esc(lang)} {pct}</text>')
-
-    # relative time on the right
-    a(f'<text x="{CARD_W-16}" y="142" text-anchor="end" font-size="10" fill="{MUTED}">{rel_time(p.get("pushed_at"))}</text>')
-
-    a('</g></a>')
+    # language donut, animated draw-in — vertically centered in the card body
+    langs = p.get("languages") or {}
+    if langs:
+        cx, cy, r = CARD_W - 58, CARD_H // 2 + 6, 27
+        segs, legend = donut_segments(langs, cx, cy, r, b + 0.3)
+        a(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{RING_BG}" stroke-width="9"/>')
+        a(segs)
+        top = legend[0]
+        a(f'<text x="{cx}" y="{cy+4}" text-anchor="middle" font-size="11" font-weight="700" fill="{TEXT}">{top[1]*100:.0f}%</text>')
+        # legend: fixed left column, dot then left-aligned text; ends well before the ring
+        dot_x = cx - r - 92
+        text_x = dot_x + 9
+        ly = cy - 22
+        for lang, frac, col in legend[:3]:
+            a(f'<circle cx="{dot_x}" cy="{ly}" r="3.5" fill="{col}"/>')
+            a(f'<text x="{text_x}" y="{ly+4}" font-size="10" fill="{MUTED}">{esc(lang)} {frac*100:.0f}%</text>')
+            ly += 18
+    a('</g>')
+    a('</a>')
     return "".join(e)
 
-def main():
-    if len(sys.argv) != 3:
-        print("Usage: generate_projects.py merged.json out_dir", file=sys.stderr)
-        sys.exit(1)
-
-    merged_path = sys.argv[1]
-    out_dir = sys.argv[2]
-
-    with open(merged_path) as f:
-        projects = json.load(f)
-
-    # load logos
-    for p in projects:
-        p["_logo_b64"] = load_logo_b64(p.get("logo"))
-
-    # compute grid
-    rows = (len(projects) + 1) // 2
-    h = MARGIN * 2 + rows * CARD_H + (rows - 1) * GAP
-
-    # SVG wrapper with theme toggle
-    svg = [f'<svg width="{W}" height="{h}" viewBox="0 0 {W} {h}" xmlns="http://www.w3.org/2000/svg">']
-    svg.append(f'<style>@media (prefers-color-scheme:dark){{.light{{display:none}}}}@media (prefers-color-scheme:light){{.dark{{display:none}}}}</style>')
-
-    # dark version
-    set_theme("dark")
-    svg.append('<g class="dark">')
-    svg.append(f'<rect width="{W}" height="{h}" fill="{BG}"/>')
+def build(projects, theme="dark"):
+    rows = math.ceil(len(projects) / 2)
+    H = 56 + rows * (CARD_H + GAP) + MARGIN
+    gid = f"acc_{theme}"
+    s = []
+    a = s.append
+    a(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
+      f'font-family="{FONT}" role="img" aria-label="Projects">')
+    a(f'<rect width="{W}" height="{H}" fill="{BG}"/>')
+    # animated accent gradient (same as banner)
+    a(f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="0">'
+      f'<stop offset="0" stop-color="{VIOLET2}"><animate attributeName="stop-color" values="{VIOLET2};{CYAN};{EMERALD};{VIOLET2}" dur="10s" repeatCount="indefinite"/></stop>'
+      f'<stop offset="1" stop-color="{EMERALD}"><animate attributeName="stop-color" values="{EMERALD};{VIOLET2};{CYAN};{EMERALD}" dur="10s" repeatCount="indefinite"/></stop>'
+      '</linearGradient></defs>')
+    # header: matches SYSTEM.INFO styling
+    a(f'<text x="{MARGIN+2}" y="18" font-size="11" letter-spacing="2" fill="{CYAN}">PROJECTS.LIST</text>')
+    a(f'<text x="{MARGIN+130}" y="18" font-size="10" fill="{DIM}">./projects.sh --all</text>')
+    a(f'<line x1="{MARGIN}" y1="28" x2="{W-MARGIN}" y2="28" stroke="url(#{gid})" stroke-width="1.5" opacity="0.7"/>')
     for i, p in enumerate(projects):
-        col = i % 2
-        row = i // 2
-        x = MARGIN + col * (CARD_W + GAP)
-        y = MARGIN + row * (CARD_H + GAP)
-        svg.append(card(p, x, y, i))
-    svg.append('</g>')
-
-    # light version
-    set_theme("light")
-    svg.append('<g class="light">')
-    svg.append(f'<rect width="{W}" height="{h}" fill="{BG}"/>')
-    for i, p in enumerate(projects):
-        col = i % 2
-        row = i // 2
-        x = MARGIN + col * (CARD_W + GAP)
-        y = MARGIN + row * (CARD_H + GAP)
-        svg.append(card(p, x, y, i))
-    svg.append('</g>')
-
-    svg.append('</svg>')
-
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "projects.svg")
-    with open(out_path, "w") as f:
-        f.write("".join(svg))
-
-    print(f"Generated {out_path} with {len(projects)} projects")
+        x = MARGIN + (i % 2) * (CARD_W + GAP + 4)
+        y = 42 + (i // 2) * (CARD_H + GAP)
+        a(card(p, x, y, i))
+    a('</svg>')
+    return "".join(s)
 
 if __name__ == "__main__":
-    main()
+    src = sys.argv[1] if len(sys.argv) > 1 else "merged.json"
+    outdir = sys.argv[2] if len(sys.argv) > 2 else "."
+    with open(src) as f:
+        projects = json.load(f)
+    for p in projects:
+        p["_logo_b64"] = load_logo_b64(p.get("logo"))
+    for theme, fname in (("dark", "projects.svg"), ("light", "projects-light.svg")):
+        set_theme(theme)
+        svg = build(projects, theme)
+        path = os.path.join(outdir, fname)
+        with open(path, "w") as f:
+            f.write(svg)
+        print(f"wrote {path}: {theme}, {len(projects)} projects, {len(svg)//1024}KB")
