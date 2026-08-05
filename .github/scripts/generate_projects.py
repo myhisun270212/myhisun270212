@@ -198,10 +198,17 @@ def card(p, x, y, idx):
     stars = p.get("stars", 0)
     a(f'<text x="68" y="142" font-size="10" fill="{MUTED}">★ {stars} stars</text>')
 
-    # language donut (small)
+    # language donut (small) + legend
     donut_start = b + 0.6
-    lang_svg, legend = donut_segments(p.get("languages", {}), CARD_W - 90, 138, 7, donut_start)
+    lang_svg, legend = donut_segments(p.get("languages", {}), CARD_W - 120, 138, 7, donut_start)
     a(lang_svg)
+    
+    # language legend - show top 2 languages with percentages
+    lang_x = CARD_W - 105
+    for i, (lang, frac, col) in enumerate(legend[:2]):
+        if frac > 0:
+            pct = f"{frac*100:.0f}%"
+            a(f'<text x="{lang_x}" y="{135 + i*12}" font-size="9" fill="{MUTED}">{esc(lang)} {pct}</text>')
 
     # relative time on the right
     a(f'<text x="{CARD_W-16}" y="142" text-anchor="end" font-size="10" fill="{MUTED}">{rel_time(p.get("pushed_at"))}</text>')
