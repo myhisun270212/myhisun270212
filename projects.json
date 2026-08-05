@@ -1,42 +1,42 @@
 [
   {
     "name": "LeadUnity",
-    "repo": "myhisun270212/notpad-bersama.git",
+    "repo": "myhisun270212/notpad-bersama",
     "logo": "logo.png",
     "description": "Leading University's defense setup",
     "tags": ["nextjs", "tailwind", "shadcn"]
   },
   {
     "name": "OnePick",
-    "repo": "myhisun270212/nyun.git",
+    "repo": "myhisun270212/nyun",
     "logo": "op.png",
     "description": "An One Piece trivia app to find your character",
     "tags": ["nextjs", "tailwind", "shadcn"]
   },
   {
     "name": "Chessy",
-    "repo": "myhisun270212/nyun-crypto.git",
+    "repo": "myhisun270212/nyun-crypto",
     "logo": "chess.png",
     "description": "Chess timer app for all types of variations",
     "tags": ["nextjs", "tailwind", "shadcn"]
   },
   {
     "name": "Claster",
-    "repo": "myhisun270212/broker-kw-blum-kelar.git",
+    "repo": "myhisun270212/broker-kw-blum-kelar",
     "logo": "claster.png",
     "description": "A class scheduling app for teachers which is used to track routines",
     "tags": ["nextjs", "tailwind", "shadcn"]
   },
   {
     "name": "OneTELE",
-    "repo": "myhisun270212/broker-kw-blum-kelar.git",
+    "repo": "myhisun270212/broker-kw-blum-kelar",
     "logo": "onetele.png",
     "description": "A custom teleprompter for liilab's recording studio",
     "tags": ["nextjs", "tailwind", "shadcn"]
   },
   {
     "name": "Career Logic AI",
-    "repo": "myhisun270212/notpad-bersama.git",
+    "repo": "myhisun270212/notpad-bersama",
     "logo": "cl.png",
     "description": "An AI Powered CV management and assesment system for aspiring career builders",
     "tags": ["nextjs", "tailwind", "shadcn"]
