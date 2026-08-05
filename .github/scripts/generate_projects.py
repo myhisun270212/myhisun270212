@@ -57,7 +57,8 @@ CARD_W   = 578
 CARD_H   = 168
 GAP      = 14
 MARGIN   = 5
-FONT     = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace"
+FONT     = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans','Helvetica Neue',sans-serif"
+FONT_MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace"
 
 def esc(s): return html.escape(str(s), quote=True)
 
@@ -148,7 +149,7 @@ def card(p, x, y, idx):
     a(f'<rect width="{CARD_W}" height="30" rx="12" fill="{PANEL_BAR}"/>')
     a(f'<rect y="18" width="{CARD_W}" height="12" fill="{PANEL_BAR}"/>')
     a(f'<line x1="0" y1="30" x2="{CARD_W}" y2="30" stroke="{BARLINE}"/>')
-    a(f'<text x="16" y="19" font-size="10" fill="{MUTED}"><tspan fill="{CYAN}">&#8226;</tspan> {esc(repo)}</text>')
+    a(f'<text x="16" y="19" font-size="11" font-weight="600" letter-spacing="0.5" font-family="{FONT_MONO}" fill="{MUTED}"><tspan fill="{CYAN}">&#8226;</tspan> {esc(repo)}</text>')
 
     # activity dot: emerald pulse if pushed within 14 days, dim otherwise
     days = 999
@@ -178,25 +179,25 @@ def card(p, x, y, idx):
 
     # name + blinking cursor
     name = esc(p.get("name", "unnamed"))
-    a(f'<text x="68" y="61" font-size="17" font-weight="700" fill="{TEXT}">{name}'
+    a(f'<text x="68" y="61" font-size="18" font-weight="800" letter-spacing="0.8" fill="{TEXT}">{name}'
       f'<tspan fill="{CYAN}">_<animate attributeName="opacity" values="1;0;1" dur="1.2s" '
       f'begin="{b+0.4:.2f}s" repeatCount="indefinite"/></tspan></text>')
 
     # description, wrapped to 2 lines
     for i, line in enumerate(wrap_text(p.get("description", ""), 52)):
-        a(f'<text x="68" y="{80 + i * 16}" font-size="11" fill="{MUTED}">{esc(line)}</text>')
+        a(f'<text x="68" y="{80 + i * 16}" font-size="12" font-weight="400" letter-spacing="0.3" fill="{MUTED}">{esc(line)}</text>')
 
     # tag pills
     tx = 68
     for tag in (p.get("tags") or [])[:3]:
-        tw = len(tag) * 7 + 12
-        a(f'<rect x="{tx}" y="105" width="{tw}" height="20" rx="10" fill="{PILL_BG}" stroke="{PILL_STROKE}" stroke-width="1"/>')
-        a(f'<text x="{tx+tw//2}" y="119" text-anchor="middle" font-size="10" font-weight="600" fill="{TEXT}">{esc(tag)}</text>')
-        tx += tw + 7
+        tw = len(tag) * 8 + 14
+        a(f'<rect x="{tx}" y="105" width="{tw}" height="22" rx="11" fill="{PILL_BG}" stroke="{PILL_STROKE}" stroke-width="1"/>')
+        a(f'<text x="{tx+tw//2}" y="120" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="0.5" fill="{TEXT}">{esc(tag)}</text>')
+        tx += tw + 8
 
     # bottom row: stars + updated
     stars = p.get("stars", 0)
-    a(f'<text x="68" y="155" font-size="11" fill="{MUTED}">'
+    a(f'<text x="68" y="155" font-size="12" font-weight="500" letter-spacing="0.4" fill="{MUTED}">'
       f'<tspan fill="{CYAN}">&#9733;</tspan> {stars}'
       f'<tspan fill="{DIM}" dx="14">updated {rel_time(p.get("pushed_at"))}</tspan></text>')
 
@@ -208,14 +209,14 @@ def card(p, x, y, idx):
         a(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{RING_BG}" stroke-width="9"/>')
         a(segs)
         top = legend[0]
-        a(f'<text x="{cx}" y="{cy+4}" text-anchor="middle" font-size="11" font-weight="700" fill="{TEXT}">{top[1]*100:.0f}%</text>')
+        a(f'<text x="{cx}" y="{cy+4}" text-anchor="middle" font-size="13" font-weight="800" letter-spacing="0.6" fill="{TEXT}">{top[1]*100:.0f}%</text>')
         # legend: fixed left column, dot then left-aligned text; ends well before the ring
         dot_x = cx - r - 92
         text_x = dot_x + 9
         ly = cy - 22
         for lang, frac, col in legend[:3]:
             a(f'<circle cx="{dot_x}" cy="{ly}" r="3.5" fill="{col}"/>')
-            a(f'<text x="{text_x}" y="{ly+4}" font-size="10" fill="{MUTED}">{esc(lang)} {frac*100:.0f}%</text>')
+            a(f'<text x="{text_x}" y="{ly+4}" font-size="11" font-weight="600" letter-spacing="0.4" fill="{MUTED}">{esc(lang)} {frac*100:.0f}%</text>')
             ly += 18
     a('</g>')
     a('</a>')
@@ -259,7 +260,7 @@ def main():
     h = MARGIN * 2 + rows * CARD_H + (rows - 1) * GAP
 
     svg = [f'<svg width="{W}" height="{h}" viewBox="0 0 {W} {h}" xmlns="http://www.w3.org/2000/svg">']
-    svg.append(f'<style>@media (prefers-color-scheme:dark){{.light{{display:none}}}}@media (prefers-color-scheme:light){{.dark{{display:none}}}}</style>')
+    svg.append(f'<style>@media (prefers-color-scheme:dark){{.light{{display:none}}}}@media (prefers-color-scheme:light){{.dark{{display:none}}}}}</style>')
 
     # dark version
     set_theme("dark")
