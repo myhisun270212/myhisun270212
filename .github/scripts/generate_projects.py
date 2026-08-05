@@ -179,7 +179,7 @@ def card(p, x, y, idx):
     # name + blinking cursor
     name = esc(p.get("name", "unnamed"))
     a(f'<text x="68" y="61" font-size="18" font-weight="800" letter-spacing="0.8" font-family="{FONT}" fill="{TEXT}">{name}'
-      f'<tspan fill="{CYAN}">_<animate attributeName="opacity" values="1;0;1" dur="1.2s" '
+      f'<tspan fill="{CYAN}" font-family="{FONT}">_<animate attributeName="opacity" values="1;0;1" dur="1.2s" '
       f'begin="{b+0.4:.2f}s" repeatCount="indefinite"/></tspan></text>')
 
     # description, wrapped to 2 lines
@@ -197,8 +197,8 @@ def card(p, x, y, idx):
     # bottom row: stars + updated
     stars = p.get("stars", 0)
     a(f'<text x="68" y="155" font-size="12" font-weight="500" letter-spacing="0.4" font-family="{FONT}" fill="{MUTED}">'
-      f'<tspan fill="{CYAN}">&#9733;</tspan> {stars}'
-      f'<tspan fill="{DIM}" dx="14">updated {rel_time(p.get("pushed_at"))}</tspan></text>')
+      f'<tspan fill="{CYAN}" font-family="{FONT}">&#9733;</tspan> {stars}'
+      f'<tspan fill="{DIM}" dx="14" font-family="{FONT}">updated {rel_time(p.get("pushed_at"))}</tspan></text>')
 
     # language donut, animated draw-in — vertically centered in the card body
     langs = p.get("languages") or {}
@@ -259,8 +259,9 @@ def main():
     h = MARGIN * 2 + rows * CARD_H + (rows - 1) * GAP
 
     svg = [f'<svg width="{W}" height="{h}" viewBox="0 0 {W} {h}" xmlns="http://www.w3.org/2000/svg">']
-    svg.append(f'<style>@media (prefers-color-scheme:dark){{.light{{display:none}}}}@media (prefers-color-scheme:light){{.dark{{display:none}}}}}')
-    svg.append(f'text{{font-family:"{FONT}"}}')
+    svg.append(f'<style>')
+    svg.append(f'@media (prefers-color-scheme:dark){{.light{{display:none}}}}@media (prefers-color-scheme:light){{.dark{{display:none}}}}}')
+    svg.append(f'text, tspan {{font-family:"{FONT}" !important}}')
     svg.append(f'</style>')
 
     # dark version
