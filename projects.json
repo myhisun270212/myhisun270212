@@ -15,28 +15,28 @@
   },
   {
     "name": "Chessy",
-    "repo": "myhisun270212/nyun-crypto",
+    "repo": "",
     "logo": "chess.png",
     "description": "Chess timer app for all types of variations",
     "tags": ["nextjs", "tailwind", "shadcn"]
   },
   {
     "name": "Claster",
-    "repo": "myhisun270212/broker-kw-blum-kelar",
+    "repo": "",
     "logo": "claster.png",
     "description": "A class scheduling app for teachers which is used to track routines",
     "tags": ["nextjs", "tailwind", "shadcn"]
   },
   {
     "name": "OneTELE",
-    "repo": "myhisun270212/broker-kw-blum-kelar",
+    "repo": "",
     "logo": "onetele.png",
     "description": "A custom teleprompter for liilab's recording studio",
     "tags": ["nextjs", "tailwind", "shadcn"]
   },
   {
     "name": "Career Logic AI",
-    "repo": "myhisun270212/notpad-bersama",
+    "repo": "",
     "logo": "cl.png",
     "description": "An AI Powered CV management and assesment system for aspiring career builders",
     "tags": ["nextjs", "tailwind", "shadcn"]
